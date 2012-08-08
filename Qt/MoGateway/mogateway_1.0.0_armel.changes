@@ -1,0 +1,23 @@
+Format: 1.8
+Date: Wed, 08 Aug 2012 18:39:32 +0300
+Source: mogateway
+Binary: mogateway
+Architecture: armel
+Version: 1.0.0
+Distribution: unstable
+Urgency: low
+Maintainer: unknown <>
+Changed-By: unknown <>
+Description: 
+ mogateway  - <insert up to 60 chars description>
+Changes: 
+ mogateway (1.0.0) unstable; urgency=low
+ .
+   * <Add change description here>
+Checksums-Sha1: 
+ f0b2d7e16483745ab1a03832c4a209039644ff54 52854 mogateway_1.0.0_armel.deb
+Checksums-Sha256: 
+ c9545182ee0ea953ea9eeae55c3bccf1924afe260a5a7901090036427f1495af 52854 mogateway_1.0.0_armel.deb
+Files: 
+ 14631842235cb0aee7824164a69ab148 52854 user/other optional mogateway_1.0.0_armel.deb
+Maemo-Display-Name: MoGateway
