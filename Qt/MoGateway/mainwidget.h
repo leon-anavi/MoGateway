@@ -224,6 +224,13 @@ private:
 
     QMessageAddressList validateEmailAndGetReceivers(QString sSubject);
 
+    /**
+      * Get user manual text
+      *
+      * @return text
+      */
+    QString getHowToText() const;
+
 };
 
 #endif // MAINWIDGET_H

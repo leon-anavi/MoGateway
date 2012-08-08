@@ -61,23 +61,7 @@ private:
 
     void loadEnglish();
 
-    void loadTurkish();
-
-    void loadGerman();
-
-    void loadRomanian();
-
-    void loadGreek();
-
-    void loadDutch();
-
-    void loadCzech();
-
-    void loadIndonesian();
-
-    void loadRussian();
-
-    void loadSelectedLanguage();
+     void loadSelectedLanguage();
 
 };
 

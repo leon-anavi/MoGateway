@@ -63,7 +63,7 @@ MainWidget::MainWidget(QWidget *parent) :
     sItemsFont += "18pt;";
 #endif
     sItemsFont += "font-weight:bold;color: #FFFFFF;";
-    m_pLabelHowTo = new QLabel(tr("How To"),this);
+    m_pLabelHowTo = new QLabel(getHowToText(),this);
     m_pLabelHowTo->setStyleSheet(sItemsFont);
     m_pLabelHowTo->setMinimumHeight(50);
     m_pLabelHowTo->setWordWrap(true);
@@ -272,7 +272,7 @@ void MainWidget::changeEvent(QEvent* event)
     if (QEvent::LanguageChange == event->type())
     {
         //translate
-        m_pLabelHowTo->setText(tr("HowTo"));
+        m_pLabelHowTo->setText(getHowToText());
 
         //reload menus
         createOptionsMenu();
@@ -411,6 +411,12 @@ QMessageAddressList MainWidget::validateEmailAndGetReceivers(QString sSubject)
 void MainWidget::refresh()
 {
     m_service->synchronize(QMessageAccount::defaultAccount(QMessage::Email));
+}
+//------------------------------------------------------------------------------
+
+QString MainWidget::getHowToText() const
+{
+    return tr("HowTo");
 }
 //------------------------------------------------------------------------------
 
