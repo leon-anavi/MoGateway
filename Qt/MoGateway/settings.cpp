@@ -24,7 +24,9 @@ Settings::Settings(QObject *parent) :
     QObject(parent),
     m_bIsAppStartedForFirstTime(true),
     m_nSelectedLanguage(0),
-    m_bEmailRemovalEnabled(false)
+    m_bEmailRemovalEnabled(false),
+    m_nEmailReceivedCount(0),
+    m_nSmsSentCount(0)
 {
 #ifdef Q_OS_SYMBIAN
     m_sSettingsFile = QApplication::applicationDirPath();
@@ -62,6 +64,10 @@ void Settings::loadSettings()
 
     //load email removal settings
     m_bEmailRemovalEnabled = settings.value("EmailRemovalEnabled").toBool();
+
+    m_nEmailReceivedCount = settings.value("EmailReceivedCount").toInt();
+
+    m_nSmsSentCount = settings.value("SmsSentCount").toInt();
 }
 //------------------------------------------------------------------------------
 
@@ -75,6 +81,12 @@ void Settings::saveSettings()
 
     //save email removal settings
     settings.setValue("EmailRemovalEnabled", m_bEmailRemovalEnabled);
+
+    //save received email count
+    settings.setValue("EmailReceivedCount", m_nEmailReceivedCount);
+
+    //save sent sms count
+    settings.setValue("SmsSentCount", m_nSmsSentCount);
 }
 //------------------------------------------------------------------------------
 
@@ -111,6 +123,42 @@ bool Settings::isEmailRemovalEnabled() const
 void Settings::setIsEmailRemovalEnabled(bool bEmailRemovalEnabled)
 {
     m_bEmailRemovalEnabled = bEmailRemovalEnabled;
+}
+//------------------------------------------------------------------------------
+
+int Settings::getEmailReceivedCount() const
+{
+    return m_nEmailReceivedCount;
+}
+//------------------------------------------------------------------------------
+
+void Settings::setEmailReceivedCount(int nEmailReceivedCount)
+{
+    m_nEmailReceivedCount = nEmailReceivedCount;
+}
+//------------------------------------------------------------------------------
+
+void Settings::incrementEmailReceivedCount(int nCount)
+{
+    m_nEmailReceivedCount += nCount;
+}
+//------------------------------------------------------------------------------
+
+int Settings::getSmsSentCount() const
+{
+    return m_nSmsSentCount;
+}
+//------------------------------------------------------------------------------
+
+void Settings::setSmsSentCount(int nSmsSentCount)
+{
+    m_nSmsSentCount = nSmsSentCount;
+}
+//------------------------------------------------------------------------------
+
+void Settings::incrementSmsSentCount(int nCount)
+{
+    m_nSmsSentCount += nCount;
 }
 //------------------------------------------------------------------------------
 

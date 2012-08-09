@@ -72,6 +72,8 @@ private:
 
     QLabel* m_pLabelHowTo;
 
+    QLabel* m_pLabelStatistics;
+
     bool m_bPortrait;
 
     QCheckBox* m_pLocationDataCheckBox;
@@ -252,6 +254,13 @@ private:
     QString getHowToText() const;
 
     /**
+      * Get statistics as text for send and received messages
+      *
+      * @return nothing
+      */
+    QString getStatistics() const;
+
+    /**
       * Get control button text
       *
       * @return QString
@@ -274,6 +283,13 @@ private:
       * @return nothing
       */
     void sendSMS(QMessageAddressList phonesList, QString sTxt);
+
+    /**
+      * Reload statistics
+      *
+      * @return nothing
+      */
+    void reloadStats();
 
 };
 

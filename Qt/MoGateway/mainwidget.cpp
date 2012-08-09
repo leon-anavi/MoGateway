@@ -39,6 +39,8 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pLangWidget(NULL),
     m_pMessageBox(NULL),
     m_pOptionsMenu(NULL),
+    m_pLabelHowTo(NULL),
+    m_pLabelStatistics(NULL),
     m_bPortrait(false),
     m_pSysInfo(NULL),
     m_pLocationDataCheckBox(NULL),
@@ -63,16 +65,21 @@ MainWidget::MainWidget(QWidget *parent) :
 #ifdef Q_OS_SYMBIAN
     sItemsFont += "8pt;";
 #else
-    sItemsFont += "18pt;";
+    sItemsFont += "16pt;";
 #endif
-    sItemsFont += "font-weight:bold;color: #FFFFFF;";
+    sItemsFont += "color: #FFFFFF;";
     m_pLabelHowTo = new QLabel(getHowToText(),this);
     m_pLabelHowTo->setStyleSheet(sItemsFont);
     m_pLabelHowTo->setMinimumHeight(50);
     m_pLabelHowTo->setWordWrap(true);
 
+    m_pLabelStatistics = new QLabel(getStatistics(),this);
+    m_pLabelStatistics->setStyleSheet(sItemsFont);
+    m_pLabelStatistics->setMinimumHeight(50);
+    m_pLabelStatistics->setWordWrap(true);
+
     QString sButtonBorder = "border-width:0px;border-style:solid;border-radius: 10px 10px / 10px 10px;";
-    QString sButtonStyle = sItemsFont+sStyleBackground+sButtonBorder;
+    QString sButtonStyle = sItemsFont+"font-weight:bold;"+sStyleBackground+sButtonBorder;
 
     //control button to start or stop the gateway
     m_pButtonControl = new QPushButton(getCtrlButtonText(), this);
@@ -84,6 +91,7 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pLayout->setMargin(0);
     m_pLayout->setContentsMargins(5,0,5,0);
     m_pLayout->addWidget(m_pMainMenu, 0, Qt::AlignTop);
+    m_pLayout->addWidget(m_pLabelStatistics, 0, Qt::AlignTop);
     m_pLayout->addWidget(m_pLabelHowTo, 0, Qt::AlignTop);
     m_pLayout->addWidget(m_pButtonControl, 0);
     setLayout(m_pLayout);
@@ -212,11 +220,14 @@ void MainWidget::processIncomingEmail()
         }
 
         QString sBody = getEmailBody(message);
-        sMessageString += "\nBody: "+ sBody;
-        m_pLabelHowTo->setText(sMessageString);
 
         //send email as SMS
         sendSMS(phones, sBody);
+
+        //update e-mail counter
+        m_pSettings->incrementEmailReceivedCount(1);
+
+        reloadStats();
 
         //Depending the app settings the received email may be removed
         if (true == m_pSettings->isEmailRemovalEnabled())
@@ -303,6 +314,8 @@ void MainWidget::changeEvent(QEvent* event)
     {
         //translate
         m_pLabelHowTo->setText(getHowToText());
+
+        m_pLabelStatistics->setText(getStatistics());
 
         //reload menus
         createOptionsMenu();
@@ -453,8 +466,19 @@ QString MainWidget::getHowToText() const
 {
     QString sHowTo = "<h4>%1</h4>%2";
     QString sSubTitle1 = tr("E-mail to SMS Gateway");
-    QString sContent1 = tr("Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers at the subject. The body of the email will be send to all recepients specified at the subject.");
+    QString sContent1 = tr("Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers separated with comma at the subject. The body of the email will be send to all recepients specified at the subject.");
     return sHowTo.arg(sSubTitle1).arg(sContent1);
+}
+//------------------------------------------------------------------------------
+
+QString MainWidget::getStatistics() const
+{
+    QString sHowTo = "<h4>%1</h4>%2";
+    QString sTitle = tr("Statistics");
+    QString sStats = tr("Received E-mails: %1 Sent SMS: %2").
+            arg(m_pSettings->getEmailReceivedCount()).
+            arg(m_pSettings->getSmsSentCount());
+    return sHowTo.arg(sTitle).arg(sStats);
 }
 //------------------------------------------------------------------------------
 
@@ -519,7 +543,17 @@ void MainWidget::sendSMS(QMessageAddressList phonesList, QString sTxt)
     msg.setSubject(m_sAppName);
     //Set message body
     msg.setBody(sTxt);
-    //Send SMS
-    m_service->send(msg);
+    //TODO: Send SMS
+    //m_service->send(msg);
+
+    //update counters
+    m_pSettings->incrementSmsSentCount(phonesList.count());
 }
 //------------------------------------------------------------------------------
+
+void MainWidget::reloadStats()
+{
+    m_pLabelStatistics->setText(getStatistics());
+}
+//------------------------------------------------------------------------------
+

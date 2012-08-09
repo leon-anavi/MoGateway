@@ -34,6 +34,10 @@ private:
 
     bool m_bEmailRemovalEnabled;
 
+    int m_nEmailReceivedCount;
+
+    int m_nSmsSentCount;
+
 public:
 
     explicit Settings(QObject *parent = 0);
@@ -87,6 +91,57 @@ public:
       * @return nothing
       */
     void setIsEmailRemovalEnabled(bool bEmailRemovalEnabled);
+
+    /**
+      * Get current count of received e-mails
+      *
+      * @return int
+      */
+    int getEmailReceivedCount() const;
+
+    /**
+      * set count of received emails
+      *
+      * @param nEmailReceivedCount
+      *
+      * @return nothing
+      */
+    void setEmailReceivedCount(int nEmailReceivedCount);
+
+    /**
+      * increment count of received emails
+      *
+      * @param nCount
+      *
+      * @return nothing
+      */
+    void incrementEmailReceivedCount(int nCount);
+
+    /**
+      * Get current count of sent SMS
+      *
+      * @return int
+      */
+    int getSmsSentCount() const;
+
+    /**
+      * set count of sent SMS
+      *
+      * @param nEmailReceivedCount
+      *
+      * @return nothing
+      */
+    void setSmsSentCount(int nSmsSentCount);
+
+    /**
+      * increment count of sent SMS
+      *
+      * @param nCount
+      *
+      * @return nothing
+      */
+    void incrementSmsSentCount(int nCount);
+
 
 private:
 
