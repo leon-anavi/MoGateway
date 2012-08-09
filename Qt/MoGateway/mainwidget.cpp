@@ -451,7 +451,10 @@ void MainWidget::refresh()
 
 QString MainWidget::getHowToText() const
 {
-    return tr("HowTo");
+    QString sHowTo = "<h4>%1</h4>%2";
+    QString sSubTitle1 = tr("E-mail to SMS Gateway");
+    QString sContent1 = tr("Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers at the subject. The body of the email will be send to all recepients specified at the subject.");
+    return sHowTo.arg(sSubTitle1).arg(sContent1);
 }
 //------------------------------------------------------------------------------
 
