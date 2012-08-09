@@ -29,6 +29,7 @@
 #include <qmessage.h>
 #include <qmessagemanager.h>
 #include <qmessageservice.h>
+#include <qsysteminfo.h>
 
 //Project specific includes
 #include "aboutwidget.h"
@@ -77,11 +78,11 @@ private:
 
     static const QString m_sAppName;
 
-    static const int m_nTagMsgLocationData = 1;
-
-    static const int m_nTagMsgSent = 2;
+    static const int m_nTagMsgNoSIM = 1;
 
     static const char* m_constStrings[];
+
+    QSystemDeviceInfo* m_pSysInfo;
 
     QPointer<QMessageService> m_service;
 
@@ -151,6 +152,13 @@ private slots:
       */
     void controlGateway();
 
+    /**
+      * Handle message box
+      *
+      * @return nothing
+      */
+    void handleMessageBox();
+
 public:
 
     /**
@@ -212,7 +220,7 @@ private:
       *
       * @return nothing
       */
-    void createAndShowMessageSent();
+    void createAndShowMessageNoSIM();
 
     /**
       * Show a sub view and close all other subvies
@@ -249,6 +257,13 @@ private:
       * @return QString
       */
     QString getCtrlButtonText() const;
+
+    /**
+      * is SIM card available?
+      *
+      * @return nothing
+      */
+    bool isSimCardAvailable() const;
 
 };
 

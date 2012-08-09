@@ -20,6 +20,7 @@ symbian:TARGET.UID3 = 0xE28AD74A
 # MOBILITY variable. 
 CONFIG += mobility
 MOBILITY = messaging
+MOBILITY += systeminfo
 
 symbian:
 {

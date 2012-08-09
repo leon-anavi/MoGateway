@@ -40,6 +40,7 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pMessageBox(NULL),
     m_pOptionsMenu(NULL),
     m_bPortrait(false),
+    m_pSysInfo(NULL),
     m_pLocationDataCheckBox(NULL),
     m_pRefreshTimer(NULL),
     m_pButtonControl(NULL),
@@ -118,6 +119,10 @@ MainWidget::MainWidget(QWidget *parent) :
     connect( m_pOptionsMenu, SIGNAL(buttonClicked()),
              this, SLOT(handleOptionsMenu()) );
 
+    //handle message box signal
+    connect( m_pMessageBox, SIGNAL(buttonClicked()),
+            this, SLOT(handleMessageBox()) );
+
     //Now when everything is constructed load languages
     m_pLangWidget->loadSettings();
 
@@ -129,6 +134,8 @@ MainWidget::MainWidget(QWidget *parent) :
         //Show screen for language selection at start-up
         m_pLangWidget->show();
     }
+
+    m_pSysInfo = new QSystemDeviceInfo(this);
 
     m_pRefreshTimer = new QTimer(this);
     connect(m_pRefreshTimer, SIGNAL(timeout()), this, SLOT(refresh()));
@@ -218,14 +225,14 @@ void MainWidget::processIncomingEmail()
 }
 //------------------------------------------------------------------------------
 
-void MainWidget::createAndShowMessageSent()
+void MainWidget::createAndShowMessageNoSIM()
 {
     m_pMessageBox->clear();
 
-    m_pMessageBox->addLabel(tr("Message sent."));
+    m_pMessageBox->addLabel(tr("Please insert and unlock a SIM card."));
     m_pMessageBox->addSpacer();
     m_pMessageBox->addButton(tr("OK"));
-    m_pMessageBox->setTag(m_nTagMsgSent);
+    m_pMessageBox->setTag(m_nTagMsgNoSIM);
 
     showWidget(m_pMessageBox);
 }
@@ -455,10 +462,43 @@ void MainWidget::controlGateway()
 {
     if (false == m_bIsGatewayStarted)
     {
-        //TODO: check is SIM card is present
+        //check is SIM card is present
+        if (false == isSimCardAvailable())
+        {
+            //show error message
+            createAndShowMessageNoSIM();
+            return;
+        }
         //TODO: check is e-mail is configured
     }
     m_bIsGatewayStarted = !m_bIsGatewayStarted;
     m_pButtonControl->setText(getCtrlButtonText());
+}
+//------------------------------------------------------------------------------
+
+bool MainWidget::isSimCardAvailable() const
+{
+    QSystemDeviceInfo::SimStatus nStatus = m_pSysInfo->simStatus();
+    if ( (QSystemDeviceInfo::SimNotAvailable == nStatus) ||
+         (QSystemDeviceInfo::SimLocked == nStatus) )
+    {
+        return false;
+    }
+    return true;
+}
+//------------------------------------------------------------------------------
+
+void MainWidget::handleMessageBox()
+{
+    if (NULL == m_pMessageBox)
+    {
+        return;
+    }
+
+    if (m_pMessageBox->getTag() == m_nTagMsgNoSIM)
+    {
+        //just hide the message box
+        m_pMessageBox->hide();
+    }
 }
 //------------------------------------------------------------------------------
