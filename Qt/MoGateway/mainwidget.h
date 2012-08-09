@@ -82,6 +82,8 @@ private:
 
     static const int m_nTagMsgNoSIM = 1;
 
+    static const int m_nTagMsgEmailNotConf = 2;
+
     static const char* m_constStrings[];
 
     QSystemDeviceInfo* m_pSysInfo;
@@ -99,6 +101,8 @@ private:
     QPushButton* m_pButtonControl;
 
     bool m_bIsGatewayStarted;
+
+    bool m_bEmailAccountNotFound;
 
 public:
 
@@ -218,11 +222,18 @@ private:
     }
 
     /**
-      * create and show message for sent panic msg
+      * create and show error message when SIM is not available
       *
       * @return nothing
       */
     void createAndShowMessageNoSIM();
+
+    /**
+      * create and show error message when e-mail is not configured
+      *
+      * @return nothing
+      */
+    void createAndShowMessageEmailNotConfigured();
 
     /**
       * Show a sub view and close all other subvies
@@ -233,7 +244,7 @@ private:
 
     void createOptionsMenu();
 
-    QString getEmailBody(QMessage email);
+    QString getEmailBody();
 
     /**
       * Remove HTML tags from string
@@ -275,6 +286,13 @@ private:
     bool isSimCardAvailable() const;
 
     /**
+      * Is e-mail account configured for the whole OS
+      *
+      *@return bool
+      */
+    bool isEmailConfigured();
+
+    /**
       * Send SMS to the specified list of recepients
       *
       * @param phonesList
@@ -297,6 +315,13 @@ private:
       * @return nothing
       */
     void resetStats();
+
+    /**
+      * create message manager and start listening for incoming emails
+      *
+      * @return nothing
+      */
+    void createMessageManager();
 
 };
 

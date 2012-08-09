@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-08-09T15:13:11. -->
+<!-- Written by Qt Creator 2.4.1, 2012-08-10T01:11:13. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
@@ -189,7 +189,7 @@
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2012-08-08T18:29:48</value>
-       <value type="QDateTime">2012-08-09T15:04:03</value>
+       <value type="QDateTime">2012-08-10T01:03:14</value>
        <value type="QDateTime">2012-08-09T01:42:49</value>
       </valuelist>
      </valuemap>

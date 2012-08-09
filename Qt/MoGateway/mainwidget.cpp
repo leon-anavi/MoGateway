@@ -43,11 +43,12 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pLabelHowTo(NULL),
     m_pLabelStatistics(NULL),
     m_bPortrait(false),
-    m_pSysInfo(NULL),
     m_pLocationDataCheckBox(NULL),
+    m_pSysInfo(NULL),
     m_pRefreshTimer(NULL),
     m_pButtonControl(NULL),
-    m_bIsGatewayStarted(false)
+    m_bIsGatewayStarted(false),
+    m_bEmailAccountNotFound(false)
 {
     m_pSettings = new Settings(this);
 
@@ -152,28 +153,10 @@ MainWidget::MainWidget(QWidget *parent) :
 
     m_service = new QMessageService(this);
 
-    // Manager for listening messages
-    m_manager = new QMessageManager(this);
-
-    // Listen new added messages
-    connect(m_manager, SIGNAL(messageAdded(const QMessageId&,
-                              const QMessageManager::NotificationFilterIdSet&)),
-            this, SLOT(messageAdded(const QMessageId&,
-                       const QMessageManager::NotificationFilterIdSet&)));
+    createMessageManager();
 
     // Connect button signal to appropriate slot
     connect(m_pButtonControl, SIGNAL(released()), this, SLOT(controlGateway()));
-
-    // Create 2 filers set for filtering messages
-    // - SMS filter
-    // - InboxFolder filter
-    m_notifFilterSet.insert(m_manager->registerNotificationFilter(
-        //QMessageFilter::byType(QMessage::Email)));
-        QMessageFilter::byType(QMessage::Email) &
-        QMessageFilter::byStatus(QMessage::Incoming)));
-
-    qDebug() << "Listeing for E-mails";
-
 }
 //------------------------------------------------------------------------------
 
@@ -220,7 +203,7 @@ void MainWidget::processIncomingEmail()
             sMessageString += phones.at(nIter).addressee();
         }
 
-        QString sBody = getEmailBody(message);
+        QString sBody = getEmailBody();
 
         //send email as SMS
         sendSMS(phones, sBody);
@@ -248,6 +231,19 @@ void MainWidget::createAndShowMessageNoSIM()
     m_pMessageBox->addSpacer();
     m_pMessageBox->addButton(tr("OK"));
     m_pMessageBox->setTag(m_nTagMsgNoSIM);
+
+    showWidget(m_pMessageBox);
+}
+//------------------------------------------------------------------------------
+
+void MainWidget::createAndShowMessageEmailNotConfigured()
+{
+    m_pMessageBox->clear();
+
+    m_pMessageBox->addLabel(tr("Please configure an email account."));
+    m_pMessageBox->addSpacer();
+    m_pMessageBox->addButton(tr("OK"));
+    m_pMessageBox->setTag(m_nTagMsgEmailNotConf);
 
     showWidget(m_pMessageBox);
 }
@@ -380,7 +376,7 @@ void MainWidget::createOptionsMenu()
 }
 //------------------------------------------------------------------------------
 
-QString MainWidget::getEmailBody(QMessage email)
+QString MainWidget::getEmailBody()
 {
     QString sMsgBody = "";
     QMessage message = m_manager->message(m_messageId);
@@ -506,7 +502,13 @@ void MainWidget::controlGateway()
             createAndShowMessageNoSIM();
             return;
         }
-        //TODO: check is e-mail is configured
+        //check is e-mail is configured
+        if (false == isEmailConfigured())
+        {
+            //show error message
+            createAndShowMessageEmailNotConfigured();
+            return;
+        }
     }
     m_bIsGatewayStarted = !m_bIsGatewayStarted;
     m_pButtonControl->setText(getCtrlButtonText());
@@ -525,6 +527,31 @@ bool MainWidget::isSimCardAvailable() const
 }
 //------------------------------------------------------------------------------
 
+bool MainWidget::isEmailConfigured()
+{
+    if (true == m_bEmailAccountNotFound)
+    {
+        delete m_manager;
+        m_notifFilterSet.clear();
+        createMessageManager();
+    }
+
+    foreach (const QMessageAccountId &id, m_manager->queryAccounts())
+    {
+        QMessageAccount account(id);
+        if (account.messageTypes() & QMessage::Email)
+        {
+            m_bEmailAccountNotFound = false;
+            //E-mail account found
+            return true;
+        }
+
+    }
+    m_bEmailAccountNotFound = true;
+    return false;
+}
+//------------------------------------------------------------------------------
+
 void MainWidget::handleMessageBox()
 {
     if (NULL == m_pMessageBox)
@@ -532,7 +559,8 @@ void MainWidget::handleMessageBox()
         return;
     }
 
-    if (m_pMessageBox->getTag() == m_nTagMsgNoSIM)
+    if ( (m_pMessageBox->getTag() == m_nTagMsgNoSIM) ||
+         (m_pMessageBox->getTag() == m_nTagMsgEmailNotConf) )
     {
         //just hide the message box
         m_pMessageBox->hide();
@@ -569,5 +597,25 @@ void MainWidget::resetStats()
     m_pSettings->setSmsSentCount(0);
     m_pSettings->setEmailReceivedCount(0);
     reloadStats();
+}
+//------------------------------------------------------------------------------
+
+void MainWidget::createMessageManager()
+{
+    // Manager for listening messages
+    m_manager = new QMessageManager(this);
+
+    // Listen new added messages
+    connect(m_manager, SIGNAL(messageAdded(const QMessageId&,
+                              const QMessageManager::NotificationFilterIdSet&)),
+            this, SLOT(messageAdded(const QMessageId&,
+                       const QMessageManager::NotificationFilterIdSet&)));
+
+    // Create 2 filers set for filtering messages
+    // - SMS filter
+    // - InboxFolder filter
+    m_notifFilterSet.insert(m_manager->registerNotificationFilter(
+        QMessageFilter::byType(QMessage::Email) &
+        QMessageFilter::byStatus(QMessage::Incoming)));
 }
 //------------------------------------------------------------------------------
