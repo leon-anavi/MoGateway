@@ -291,6 +291,13 @@ private:
       */
     void reloadStats();
 
+    /**
+      * Reset statistics
+      *
+      * @return nothing
+      */
+    void resetStats();
+
 };
 
 #endif // MAINWIDGET_H

@@ -29,6 +29,7 @@ const char* MainWidget::m_constStrings[] = {
     QT_TRANSLATE_NOOP("MainWidget", "About"),
     QT_TRANSLATE_NOOP("MainWidget", "Language"),
     QT_TRANSLATE_NOOP("MainWidget", "Cancel"),
+    QT_TRANSLATE_NOOP("MainWidget", "Reset Statistics"),
  };
 
 MainWidget::MainWidget(QWidget *parent) :
@@ -343,6 +344,11 @@ void MainWidget::handleOptionsMenu()
         //show settings view for language
         showWidget(m_pLangWidget);
     }
+    if (pButton->text() == tr(m_constStrings[3]))
+    {
+        //TODO: add a confirmation dialog
+        resetStats();
+    }
 
     m_pOptionsMenu->hide();
 }
@@ -367,6 +373,7 @@ void MainWidget::createOptionsMenu()
 {
     m_pOptionsMenu->clear();
     m_pOptionsMenu->addButton(tr(m_constStrings[1]));
+    m_pOptionsMenu->addButton(tr(m_constStrings[3]));
     m_pOptionsMenu->addButton(tr(m_constStrings[0]));
     m_pOptionsMenu->addSpacer();
     m_pOptionsMenu->addButton(tr(m_constStrings[2]));
@@ -557,3 +564,10 @@ void MainWidget::reloadStats()
 }
 //------------------------------------------------------------------------------
 
+void MainWidget::resetStats()
+{
+    m_pSettings->setSmsSentCount(0);
+    m_pSettings->setEmailReceivedCount(0);
+    reloadStats();
+}
+//------------------------------------------------------------------------------
