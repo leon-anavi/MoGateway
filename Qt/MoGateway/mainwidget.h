@@ -265,6 +265,16 @@ private:
       */
     bool isSimCardAvailable() const;
 
+    /**
+      * Send SMS to the specified list of recepients
+      *
+      * @param phonesList
+      * @param sTxt
+      *
+      * @return nothing
+      */
+    void sendSMS(QMessageAddressList phonesList, QString sTxt);
+
 };
 
 #endif // MAINWIDGET_H

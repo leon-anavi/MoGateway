@@ -23,7 +23,7 @@
 //Project specific includes
 #include "mainwidget.h"
 
-const QString MainWidget::m_sAppName = QString("location2sms");
+const QString MainWidget::m_sAppName = QString("MoGateway");
 
 const char* MainWidget::m_constStrings[] = {
     QT_TRANSLATE_NOOP("MainWidget", "About"),
@@ -159,8 +159,9 @@ MainWidget::MainWidget(QWidget *parent) :
     // - SMS filter
     // - InboxFolder filter
     m_notifFilterSet.insert(m_manager->registerNotificationFilter(
-        QMessageFilter::byType(QMessage::Email))); //&
-        //QMessageFilter::byStatus(QMessage::Incoming)));
+        //QMessageFilter::byType(QMessage::Email)));
+        QMessageFilter::byType(QMessage::Email) &
+        QMessageFilter::byStatus(QMessage::Incoming)));
 
     qDebug() << "Listeing for E-mails";
 
@@ -210,10 +211,12 @@ void MainWidget::processIncomingEmail()
             sMessageString += phones.at(nIter).addressee();
         }
 
-        sMessageString += "\nBody: "+ getEmailBody(message);
+        QString sBody = getEmailBody(message);
+        sMessageString += "\nBody: "+ sBody;
         m_pLabelHowTo->setText(sMessageString);
 
-        //TODO: send email as SMS
+        //send email as SMS
+        sendSMS(phones, sBody);
 
         //Depending the app settings the received email may be removed
         if (true == m_pSettings->isEmailRemovalEnabled())
@@ -500,5 +503,20 @@ void MainWidget::handleMessageBox()
         //just hide the message box
         m_pMessageBox->hide();
     }
+}
+//------------------------------------------------------------------------------
+
+void MainWidget::sendSMS(QMessageAddressList phonesList, QString sTxt)
+{
+    // Create  a new email
+    QMessage msg;
+    msg.setType(QMessage::Sms);
+    // Add required parameters
+    msg.setTo(phonesList);
+    msg.setSubject(m_sAppName);
+    //Set message body
+    msg.setBody(sTxt);
+    //Send SMS
+    m_service->send(msg);
 }
 //------------------------------------------------------------------------------
