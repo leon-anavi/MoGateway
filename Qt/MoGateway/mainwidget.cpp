@@ -41,7 +41,9 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pOptionsMenu(NULL),
     m_bPortrait(false),
     m_pLocationDataCheckBox(NULL),
-    m_pRefreshTimer(NULL)
+    m_pRefreshTimer(NULL),
+    m_pButtonControl(NULL),
+    m_bIsGatewayStarted(false)
 {
     m_pSettings = new Settings(this);
 
@@ -68,12 +70,21 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pLabelHowTo->setMinimumHeight(50);
     m_pLabelHowTo->setWordWrap(true);
 
+    QString sButtonBorder = "border-width:0px;border-style:solid;border-radius: 10px 10px / 10px 10px;";
+    QString sButtonStyle = sItemsFont+sStyleBackground+sButtonBorder;
+
+    //control button to start or stop the gateway
+    m_pButtonControl = new QPushButton(getCtrlButtonText(), this);
+    m_pButtonControl->setMinimumHeight(40);
+    m_pButtonControl->setStyleSheet(sButtonStyle);
+
     m_pLayout = new QVBoxLayout(this);
     m_pLayout->setSpacing(2);
     m_pLayout->setMargin(0);
     m_pLayout->setContentsMargins(5,0,5,0);
     m_pLayout->addWidget(m_pMainMenu, 0, Qt::AlignTop);
     m_pLayout->addWidget(m_pLabelHowTo, 0, Qt::AlignTop);
+    m_pLayout->addWidget(m_pButtonControl, 0);
     setLayout(m_pLayout);
 
     //about
@@ -134,6 +145,9 @@ MainWidget::MainWidget(QWidget *parent) :
             this, SLOT(messageAdded(const QMessageId&,
                        const QMessageManager::NotificationFilterIdSet&)));
 
+    // Connect button signal to appropriate slot
+    connect(m_pButtonControl, SIGNAL(released()), this, SLOT(controlGateway()));
+
     // Create 2 filers set for filtering messages
     // - SMS filter
     // - InboxFolder filter
@@ -167,6 +181,12 @@ void MainWidget::messageAdded(const QMessageId& id,
 
 void MainWidget::processIncomingEmail()
 {
+    if (false == m_bIsGatewayStarted)
+    {
+        //ignore incoming message if the gateway is not started
+        return;
+    }
+
     QMessage message = m_manager->message(m_messageId);
 
     QMessageAddressList phones = validateEmailAndGetReceivers(message.subject());
@@ -410,7 +430,12 @@ QMessageAddressList MainWidget::validateEmailAndGetReceivers(QString sSubject)
 
 void MainWidget::refresh()
 {
-    m_service->synchronize(QMessageAccount::defaultAccount(QMessage::Email));
+#ifndef Q_OS_SYMBIAN
+    if (true == m_bIsGatewayStarted)
+    {
+        m_service->synchronize(QMessageAccount::defaultAccount(QMessage::Email));
+    }
+#endif
 }
 //------------------------------------------------------------------------------
 
@@ -420,3 +445,20 @@ QString MainWidget::getHowToText() const
 }
 //------------------------------------------------------------------------------
 
+QString MainWidget::getCtrlButtonText() const
+{
+    return (false == m_bIsGatewayStarted) ? tr("Start") : tr("Stop");
+}
+//------------------------------------------------------------------------------
+
+void MainWidget::controlGateway()
+{
+    if (false == m_bIsGatewayStarted)
+    {
+        //TODO: check is SIM card is present
+        //TODO: check is e-mail is configured
+    }
+    m_bIsGatewayStarted = !m_bIsGatewayStarted;
+    m_pButtonControl->setText(getCtrlButtonText());
+}
+//------------------------------------------------------------------------------

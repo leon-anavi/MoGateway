@@ -93,6 +93,10 @@ private:
 
     QTimer* m_pRefreshTimer;
 
+    QPushButton* m_pButtonControl;
+
+    bool m_bIsGatewayStarted;
+
 public:
 
     explicit MainWidget(QWidget *parent = 0);
@@ -138,6 +142,14 @@ private slots:
       * @return nothing
       */
     void refresh();
+
+
+    /**
+      * Start or stop the gateway
+      *
+      * @return nothing
+      */
+    void controlGateway();
 
 public:
 
@@ -230,6 +242,13 @@ private:
       * @return text
       */
     QString getHowToText() const;
+
+    /**
+      * Get control button text
+      *
+      * @return QString
+      */
+    QString getCtrlButtonText() const;
 
 };
 

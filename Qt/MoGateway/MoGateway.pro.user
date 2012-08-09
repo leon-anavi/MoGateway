@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-08-09T01:34:40. -->
+<!-- Written by Qt Creator 2.4.1, 2012-08-09T10:15:35. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -175,18 +175,22 @@
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedFiles">
        <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_0.0.1_armel.deb</value>
        <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_1.0.0_armel.deb</value>
+       <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_1.0.0_armel.deb</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.4.101</value>
+       <value type="QString">192.168.4.102</value>
        <value type="QString">192.168.4.101</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedRemotePaths">
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2012-08-08T18:29:48</value>
-       <value type="QDateTime">2012-08-09T01:23:34</value>
+       <value type="QDateTime">2012-08-09T09:58:39</value>
+       <value type="QDateTime">2012-08-09T01:42:49</value>
       </valuelist>
      </valuemap>
      <value type="int" key="ProjectExplorer.BuildStepList.StepsCount">3</value>
@@ -289,7 +293,7 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Symbian Device</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Symbian Device</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Target.S60DeviceTarget</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">5</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
@@ -699,10 +703,10 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Create SIS Package</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.S60SignBuildStep</value>
-      <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Certificate"></value>
-      <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Keyfile"></value>
-      <value type="int" key="Qt4ProjectManager.S60CreatePackageStep.SignMode">0</value>
-      <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SmartInstaller">false</value>
+      <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Certificate">C:/Symbian/Carbide/workspace/UBrowser/sis/certificate_v1.cer</value>
+      <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Keyfile">C:/Symbian/Carbide/workspace/UBrowser/sis/developercertificate.key</value>
+      <value type="int" key="Qt4ProjectManager.S60CreatePackageStep.SignMode">1</value>
+      <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SmartInstaller">true</value>
       <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SuppressPatchWarningDialog">false</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
@@ -723,7 +727,7 @@
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DeviceAddress"></value>
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DevicePort">65029</value>
     <value type="QChar" key="Qt4ProjectManager.S60DeployConfiguration.InstallationDriveLetter">C</value>
-    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName">COM5</value>
+    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName">COM6</value>
     <value type="bool" key="Qt4ProjectManager.S60DeployConfiguration.SilentInstall">true</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
@@ -797,8 +801,8 @@
     <value type="QString" key="Qt4ProjectManager.S60DeviceRunConfiguration.ProFile">MoGateway.pro</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">true</value>
-    <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
-    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
+    <value type="bool" key="RunConfiguration.UseQmlDebugger">true</value>
+    <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">false</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
