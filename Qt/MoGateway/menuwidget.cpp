@@ -61,7 +61,7 @@ void MenuWidget::initGui()
     QString sStyleBackground = "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #4c4c4c, stop: 0.5 #333333, stop: 1 #202020);";
     QString sButtonBorder = "border-width:0px;border-style:solid;border-radius: 10px 10px / 10px 10px;";
 
-    m_pControlLabel = new QLabel("<i>Mo<span style=\"color: #006BC2;\">Gateway</span></i>",this);
+    m_pControlLabel = new QLabel("<i><span style=\"color: #003300;\">Mo</span><span style=\"color: #006600;\">Gateway</span></i>",this);
     m_pControlLabel->setMinimumWidth(180);
     m_pControlLabel->setMinimumHeight(nMinHeight);
     m_pControlLabel->setStyleSheet(sFontStyleTop);

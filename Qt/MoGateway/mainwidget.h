@@ -108,6 +108,10 @@ private:
 
     bool m_bEmailAccountNotFound;
 
+    QString m_sButtonStartStyle;
+
+    QString m_sButtonStopStyle;
+
 public:
 
     explicit MainWidget(QWidget *parent = 0);

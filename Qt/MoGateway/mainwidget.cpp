@@ -64,13 +64,13 @@ MainWidget::MainWidget(QWidget *parent) :
 #endif
 
     //labels
-    QString sItemsFont = "font-size: ";
+    QString sFontSize = "font-size: ";
 #ifdef Q_OS_SYMBIAN
-    sItemsFont += "8pt;";
+    sFontSize += "8pt;";
 #else
-    sItemsFont += "16pt;";
+    sFontSize += "16pt;";
 #endif
-    sItemsFont += "color: #FFFFFF;";
+    QString sItemsFont = sFontSize + "color: #FFFFFF;";
     m_pLabelHowTo = new QLabel(getHowToText(),this);
     m_pLabelHowTo->setStyleSheet(sItemsFont);
     m_pLabelHowTo->setMinimumHeight(50);
@@ -82,12 +82,18 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pLabelStatistics->setWordWrap(true);
 
     QString sButtonBorder = "border-width:0px;border-style:solid;border-radius: 10px 10px / 10px 10px;";
-    QString sButtonStyle = sItemsFont+"font-weight:bold;"+sStyleBackground+sButtonBorder;
+
+    QString sStyleBackgroundStart = "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #006600, stop: 0.5 #003300, stop: 1 #001100);";
+    QString sStyleBackgroundStop = "background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #A00000, stop: 0.5 #680000, stop: 1 #280000);";
+    QString sButtonFont = sFontSize+"color: #FFFFFF;";
+
+    m_sButtonStartStyle = sButtonFont+"font-weight:bold;"+sStyleBackgroundStart+sButtonBorder;
+    m_sButtonStopStyle = sButtonFont+"font-weight:bold;"+sStyleBackgroundStop+sButtonBorder;
 
     //control button to start or stop the gateway
     m_pButtonControl = new QPushButton(getCtrlButtonText(), this);
     m_pButtonControl->setMinimumHeight(40);
-    m_pButtonControl->setStyleSheet(sButtonStyle);
+    m_pButtonControl->setStyleSheet(m_sButtonStartStyle);
 
     m_pCheckBoxRemoveEmails = new QCheckBox(getRmEmailCheckBoxText(), this);
     m_pCheckBoxRemoveEmails->setStyleSheet(sItemsFont);
@@ -493,19 +499,28 @@ QString MainWidget::getHowToText() const
 {
     QString sHowTo = "<h4>%1</h4>%2";
     QString sSubTitle1 = tr("E-mail to SMS Gateway");
-    QString sContent1 = tr("Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers separated with comma at the subject. The body of the email will be send to all recepients specified at the subject.");
+    QString sContent1 = tr("Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers separated with comma at the subject. The e-mail body will be send as SMS to each phone number.");
     return sHowTo.arg(sSubTitle1).arg(sContent1);
 }
 //------------------------------------------------------------------------------
 
 QString MainWidget::getStatistics() const
 {
-    QString sHowTo = "<h4>%1</h4>%2";
-    QString sTitle = tr("Statistics");
+    QString sStatusPane = "<h4>%1</h4>%2";
+    QString sTitle = tr("Status");
+    QString sColor = "#A00000";
+    QString sStatus = tr("Off");
+    if (true == m_bIsGatewayStarted)
+    {
+        sColor = "#006600";
+        sStatus = tr("On");
+    }
+
+    QString sStatusMsg = QString("%1 <span style=\"color: %2;\">%3</span>").arg(sTitle).arg(sColor).arg(sStatus);
     QString sStats = tr("Received E-mails: %1 Sent SMS: %2").
             arg(m_pSettings->getEmailReceivedCount()).
             arg(m_pSettings->getSmsSentCount());
-    return sHowTo.arg(sTitle).arg(sStats);
+    return sStatusPane.arg(sStatusMsg).arg(sStats);
 }
 //------------------------------------------------------------------------------
 
@@ -539,9 +554,17 @@ void MainWidget::controlGateway()
             createAndShowMessageEmailNotConfigured();
             return;
         }
+
+        m_pButtonControl->setStyleSheet(m_sButtonStopStyle);
     }
+    else
+    {
+        m_pButtonControl->setStyleSheet(m_sButtonStartStyle);
+    }
+
     m_bIsGatewayStarted = !m_bIsGatewayStarted;
     m_pButtonControl->setText(getCtrlButtonText());
+    m_pLabelStatistics->setText(getStatistics());
 }
 //------------------------------------------------------------------------------
 
