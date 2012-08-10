@@ -84,6 +84,8 @@ private:
 
     static const int m_nTagMsgEmailNotConf = 2;
 
+    static const int m_nTagMsgResetStats = 3;
+
     static const char* m_constStrings[];
 
     QSystemDeviceInfo* m_pSysInfo;
@@ -99,6 +101,8 @@ private:
     QTimer* m_pRefreshTimer;
 
     QPushButton* m_pButtonControl;
+
+    QCheckBox* m_pCheckBoxRemoveEmails;
 
     bool m_bIsGatewayStarted;
 
@@ -157,6 +161,15 @@ private slots:
       * @return nothing
       */
     void controlGateway();
+
+    /**
+      * change state of the checkbox for removing e-mails
+      *
+      * @param int
+      *
+      * @return nothing
+      */
+    void checkBoxRemoveEmailStateChanged(int nState);
 
     /**
       * Handle message box
@@ -236,6 +249,13 @@ private:
     void createAndShowMessageEmailNotConfigured();
 
     /**
+      * create and show a message to confirm reset of statistics
+      *
+      * @return nothing
+      */
+    void createAndShowMessageResetStats();
+
+    /**
       * Show a sub view and close all other subvies
       *
       * @return nothing
@@ -277,6 +297,13 @@ private:
       * @return QString
       */
     QString getCtrlButtonText() const;
+
+    /**
+      * get text for checkbox for remove received emails
+      *
+      * @return QString
+      */
+    QString getRmEmailCheckBoxText() const;
 
     /**
       * is SIM card available?

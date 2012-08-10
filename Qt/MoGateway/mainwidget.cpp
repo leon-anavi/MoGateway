@@ -29,7 +29,7 @@ const char* MainWidget::m_constStrings[] = {
     QT_TRANSLATE_NOOP("MainWidget", "About"),
     QT_TRANSLATE_NOOP("MainWidget", "Language"),
     QT_TRANSLATE_NOOP("MainWidget", "Cancel"),
-    QT_TRANSLATE_NOOP("MainWidget", "Reset Statistics"),
+    QT_TRANSLATE_NOOP("MainWidget", "Clear Statistics"),
  };
 
 MainWidget::MainWidget(QWidget *parent) :
@@ -47,6 +47,7 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pSysInfo(NULL),
     m_pRefreshTimer(NULL),
     m_pButtonControl(NULL),
+    m_pCheckBoxRemoveEmails(NULL),
     m_bIsGatewayStarted(false),
     m_bEmailAccountNotFound(false)
 {
@@ -88,13 +89,17 @@ MainWidget::MainWidget(QWidget *parent) :
     m_pButtonControl->setMinimumHeight(40);
     m_pButtonControl->setStyleSheet(sButtonStyle);
 
+    m_pCheckBoxRemoveEmails = new QCheckBox(getRmEmailCheckBoxText(), this);
+    m_pCheckBoxRemoveEmails->setStyleSheet(sItemsFont);
+
+    m_pCheckBoxRemoveEmails->setChecked(m_pSettings->isEmailRemovalEnabled());
+
     m_pLayout = new QVBoxLayout(this);
-    m_pLayout->setSpacing(2);
-    m_pLayout->setMargin(0);
-    m_pLayout->setContentsMargins(5,0,5,0);
+    m_pLayout->setSpacing(20);
     m_pLayout->addWidget(m_pMainMenu, 0, Qt::AlignTop);
-    m_pLayout->addWidget(m_pLabelStatistics, 0, Qt::AlignTop);
-    m_pLayout->addWidget(m_pLabelHowTo, 0, Qt::AlignTop);
+    m_pLayout->addWidget(m_pCheckBoxRemoveEmails, 0, Qt::AlignVCenter);
+    m_pLayout->addWidget(m_pLabelStatistics, 0, Qt::AlignVCenter);
+    m_pLayout->addWidget(m_pLabelHowTo, 1, Qt::AlignTop);
     m_pLayout->addWidget(m_pButtonControl, 0);
     setLayout(m_pLayout);
 
@@ -157,6 +162,9 @@ MainWidget::MainWidget(QWidget *parent) :
 
     // Connect button signal to appropriate slot
     connect(m_pButtonControl, SIGNAL(released()), this, SLOT(controlGateway()));
+
+    connect(m_pCheckBoxRemoveEmails, SIGNAL(stateChanged(int)),
+            this,SLOT(checkBoxRemoveEmailStateChanged(int)));
 }
 //------------------------------------------------------------------------------
 
@@ -249,6 +257,20 @@ void MainWidget::createAndShowMessageEmailNotConfigured()
 }
 //------------------------------------------------------------------------------
 
+void MainWidget::createAndShowMessageResetStats()
+{
+    m_pMessageBox->clear();
+
+    m_pMessageBox->addLabel(tr("Are you sure you want to clear statistics?"));
+    m_pMessageBox->addSpacer();
+    m_pMessageBox->addButton(tr("Yes"));
+    m_pMessageBox->addButton(tr("No"));
+
+    m_pMessageBox->setTag(m_nTagMsgResetStats);
+    showWidget(m_pMessageBox);
+}
+//------------------------------------------------------------------------------
+
 void MainWidget::showOptionsMenu()
 {
     showWidget(m_pOptionsMenu);
@@ -314,6 +336,8 @@ void MainWidget::changeEvent(QEvent* event)
 
         m_pLabelStatistics->setText(getStatistics());
 
+        m_pCheckBoxRemoveEmails->setText(getRmEmailCheckBoxText());
+
         //reload menus
         createOptionsMenu();
     }
@@ -343,7 +367,7 @@ void MainWidget::handleOptionsMenu()
     if (pButton->text() == tr(m_constStrings[3]))
     {
         //TODO: add a confirmation dialog
-        resetStats();
+        createAndShowMessageResetStats();
     }
 
     m_pOptionsMenu->hide();
@@ -491,6 +515,12 @@ QString MainWidget::getCtrlButtonText() const
 }
 //------------------------------------------------------------------------------
 
+QString MainWidget::getRmEmailCheckBoxText() const
+{
+    return tr("Delete received e-mail messages");
+}
+//------------------------------------------------------------------------------
+
 void MainWidget::controlGateway()
 {
     if (false == m_bIsGatewayStarted)
@@ -512,6 +542,12 @@ void MainWidget::controlGateway()
     }
     m_bIsGatewayStarted = !m_bIsGatewayStarted;
     m_pButtonControl->setText(getCtrlButtonText());
+}
+//------------------------------------------------------------------------------
+
+void MainWidget::checkBoxRemoveEmailStateChanged(int /*nState*/)
+{
+    m_pSettings->setIsEmailRemovalEnabled(m_pCheckBoxRemoveEmails->isChecked());
 }
 //------------------------------------------------------------------------------
 
@@ -559,12 +595,19 @@ void MainWidget::handleMessageBox()
         return;
     }
 
-    if ( (m_pMessageBox->getTag() == m_nTagMsgNoSIM) ||
-         (m_pMessageBox->getTag() == m_nTagMsgEmailNotConf) )
+    if (m_pMessageBox->getTag() == m_nTagMsgResetStats)
     {
-        //just hide the message box
-        m_pMessageBox->hide();
+        QPushButton* pButton = m_pMessageBox->getLastClickedButton();
+        //get last clicked button
+        if (pButton->text() == tr("Yes"))
+        {
+            //clear statistics
+            resetStats();
+        }
     }
+
+    //just hide the message box
+    m_pMessageBox->hide();
 }
 //------------------------------------------------------------------------------
 
