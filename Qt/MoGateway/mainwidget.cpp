@@ -66,7 +66,7 @@ MainWidget::MainWidget(QWidget *parent) :
     //labels
     QString sFontSize = "font-size: ";
 #ifdef Q_OS_SYMBIAN
-    sFontSize += "8pt;";
+    sFontSize += "6pt;";
 #else
     sFontSize += "16pt;";
 #endif
@@ -207,16 +207,6 @@ void MainWidget::processIncomingEmail()
 
     if (0 < phones.count())
     {
-        QString sMessageString = "Tel: ";
-        for (int nIter=0; nIter < phones.count(); nIter++)
-        {
-            if (0 < nIter)
-            {
-                sMessageString += ", ";
-            }
-            sMessageString += phones.at(nIter).addressee();
-        }
-
         QString sBody = getEmailBody();
 
         //send email as SMS

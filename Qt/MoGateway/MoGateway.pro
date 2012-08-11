@@ -29,7 +29,6 @@ symbian:
 
     # symbian capabilities
     TARGET.CAPABILITY += NetworkServices \
-                            Location \
                             ReadUserData \
                             WriteUserData \
                             ReadDeviceData \
