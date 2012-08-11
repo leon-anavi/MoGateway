@@ -87,7 +87,7 @@ void AboutWidget::changeEvent(QEvent* event)
 
 QString AboutWidget::getInfoText() const
 {
-    QString sText = "<h2><i>Mo<span style=\"color: #006BC2;\">Gateway</span></i></h2>\n";
+    QString sText = "<h2><i><span style=\"color: #128406;\">Mo</span><span style=\"color: #006600;\">Gateway</span></i></h2>\n";
     sText += "1.0.0<br />\n";
     sText += QChar(0x00A9);
     sText += "2012 Leon Anavi<br />\n"

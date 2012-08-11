@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-08-11T10:43:44. -->
+<!-- Written by Qt Creator 2.4.1, 2012-08-11T14:00:28. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">1</value>
+  <value type="int">0</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -177,10 +177,12 @@
        <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_1.0.0_armel.deb</value>
        <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_1.0.0_armel.deb</value>
        <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_1.0.0_armel.deb</value>
+       <value type="QString">C:/gitorious/mogateway/Qt/MoGateway/mogateway_1.0.0_armel.deb</value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedHosts">
        <value type="QString">192.168.4.101</value>
        <value type="QString">192.168.4.102</value>
+       <value type="QString">192.168.4.103</value>
        <value type="QString">192.168.4.101</value>
        <value type="QString">192.168.4.105</value>
       </valuelist>
@@ -189,10 +191,12 @@
        <value type="QString"></value>
        <value type="QString"></value>
        <value type="QString"></value>
+       <value type="QString"></value>
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2012-08-08T18:29:48</value>
        <value type="QDateTime">2012-08-10T01:30:46</value>
+       <value type="QDateTime">2012-08-11T11:11:24</value>
        <value type="QDateTime">2012-08-09T01:42:49</value>
        <value type="QDateTime">2012-08-11T03:04:26</value>
       </valuelist>
@@ -731,7 +735,7 @@
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DeviceAddress"></value>
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DevicePort">65029</value>
     <value type="QChar" key="Qt4ProjectManager.S60DeployConfiguration.InstallationDriveLetter">C</value>
-    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName">COM6</value>
+    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName"></value>
     <value type="bool" key="Qt4ProjectManager.S60DeployConfiguration.SilentInstall">true</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
