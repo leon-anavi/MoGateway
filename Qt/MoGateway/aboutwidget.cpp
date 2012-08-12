@@ -69,7 +69,6 @@ void AboutWidget::paintEvent(QPaintEvent* /*event*/)
 
 void AboutWidget::mousePressEvent(QMouseEvent* /*event*/)
 {
-    qDebug() << "hide about widget";
     hide();
 }
 //------------------------------------------------------------------------------
