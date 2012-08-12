@@ -1,7 +1,7 @@
 /*
 * ============================================================================
 *  Name         : settingslistwidget.h
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : basic settings view with list
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org

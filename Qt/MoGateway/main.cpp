@@ -1,3 +1,16 @@
+/*
+* ============================================================================
+*  Name         : main.cpp
+*  Part of      : MoGateway
+*  Description  : Main file
+*  Author     	: Leon Anavi
+*  Email		: leon@anavi.org
+*  License      : GNU General Public License version 3 (GPLv3)
+*
+*  Copyright (c) 2012
+* ============================================================================
+*/
+
 #include "mainwindow.h"
 
 #include <QtGui/QApplication>

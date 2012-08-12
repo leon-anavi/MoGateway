@@ -1,7 +1,7 @@
 /*
 * ============================================================================
 *  Name         : custommessagebox.h
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : Custom message box
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org

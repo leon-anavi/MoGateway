@@ -1,7 +1,7 @@
 /*
 * ============================================================================
 *  Name         : settings.cpp
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : settings back-end
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org

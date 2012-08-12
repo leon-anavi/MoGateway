@@ -1,13 +1,13 @@
 /*
 * ============================================================================
 *  Name         : mainwidget.cpp
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : Main screen
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org
 *  License      : GNU General Public License version 3 (GPLv3)
 *
-*  Copyright (c) 2011-12
+*  Copyright (c) 2012
 * ============================================================================
 */
 
@@ -336,6 +336,8 @@ void MainWidget::changeEvent(QEvent* event)
         m_pLabelStatistics->setText(getStatistics());
 
         m_pCheckBoxRemoveEmails->setText(getRmEmailCheckBoxText());
+
+        m_pButtonControl->setText(getCtrlButtonText());
 
         //reload menus
         createOptionsMenu();

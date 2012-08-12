@@ -1,7 +1,7 @@
 /*
 * ============================================================================
 *  Name         : menuwidget.cpp
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : Menu
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org

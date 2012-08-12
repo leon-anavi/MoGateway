@@ -1,3 +1,16 @@
+/*
+* ============================================================================
+*  Name         : mainwindow.h
+*  Part of      : MoGateway
+*  Description  : Main window
+*  Author     	: Leon Anavi
+*  Email		: leon@anavi.org
+*  License      : GNU General Public License version 3 (GPLv3)
+*
+*  Copyright (c) 2012
+* ============================================================================
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 

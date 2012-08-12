@@ -1,3 +1,16 @@
+/*
+* ============================================================================
+*  Name         : proxywidget.h
+*  Part of      : MoGateway
+*  Description  : Proxy for QML
+*  Author     	: Leon Anavi
+*  Email		: leon@anavi.org
+*  License      : GNU General Public License version 3 (GPLv3)
+*
+*  Copyright (c) 2012
+* ============================================================================
+*/
+
 #ifndef PROXYWIDGET_H
 #define PROXYWIDGET_H
 

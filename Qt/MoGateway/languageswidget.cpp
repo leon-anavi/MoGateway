@@ -1,7 +1,7 @@
 ﻿/*
 * ============================================================================
 *  Name         : languageswidget.cpp
-*  Part of      : location2sms
+*  Part of      : mogateway
 *  Description  : manage languages
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org
@@ -73,7 +73,7 @@ void LanguagesWidget::loadSelectedLanguage()
 
 void LanguagesWidget::loadBulgarian()
 {
-    if (m_Translator.load(":/translations/location2sms_bg"))
+    if (m_Translator.load(":/translations/mogateway_bg"))
     {
         qDebug() << "Bulgarian translation loaded.";
     }

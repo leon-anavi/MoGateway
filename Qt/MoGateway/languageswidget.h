@@ -1,7 +1,7 @@
 /*
 * ============================================================================
 *  Name         : languageswidget.h
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : manage languages
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org

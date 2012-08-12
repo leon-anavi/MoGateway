@@ -1,7 +1,7 @@
 /*
 * ============================================================================
 *  Name         : aboutwidget.cpp
-*  Part of      : location2sms
+*  Part of      : MoGateway
 *  Description  : Show about information
 *  Author     	: Leon Anavi
 *  Email		: leon@anavi.org
