@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-08-12T17:14:54. -->
+<!-- Written by Qt Creator 2.4.1, 2012-08-12T19:05:58. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -195,7 +195,7 @@
       </valuelist>
       <valuelist type="QVariantList" key="Qt4ProjectManager.MaemoRunConfiguration.LastDeployedTimes">
        <value type="QDateTime">2012-08-08T18:29:48</value>
-       <value type="QDateTime">2012-08-12T17:13:38</value>
+       <value type="QDateTime">2012-08-12T17:15:25</value>
        <value type="QDateTime">2012-08-12T15:38:25</value>
        <value type="QDateTime">2012-08-09T01:42:49</value>
        <value type="QDateTime">2012-08-11T03:04:26</value>
@@ -713,8 +713,8 @@
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.S60SignBuildStep</value>
       <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Certificate">C:/Symbian/Carbide/workspace/UBrowser/sis/certificate_v1.cer</value>
       <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Keyfile">C:/Symbian/Carbide/workspace/UBrowser/sis/developercertificate.key</value>
-      <value type="int" key="Qt4ProjectManager.S60CreatePackageStep.SignMode">1</value>
-      <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SmartInstaller">false</value>
+      <value type="int" key="Qt4ProjectManager.S60CreatePackageStep.SignMode">2</value>
+      <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SmartInstaller">true</value>
       <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SuppressPatchWarningDialog">false</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">

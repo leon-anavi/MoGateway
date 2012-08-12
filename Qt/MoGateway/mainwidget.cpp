@@ -656,8 +656,8 @@ void MainWidget::sendSMS(QMessageAddressList phonesList, QString sTxt)
     msg.setSubject(m_sAppName);
     //Set message body
     msg.setBody(sTxt);
-    //TODO: Send SMS
-    //m_service->send(msg);
+    //Send SMS
+    m_service->send(msg);
 
     //update counters
     m_pSettings->incrementSmsSentCount(phonesList.count());
