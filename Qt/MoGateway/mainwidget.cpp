@@ -66,7 +66,17 @@ MainWidget::MainWidget(QWidget *parent) :
     //labels
     QString sFontSize = "font-size: ";
 #ifdef Q_OS_SYMBIAN
-    sFontSize += "6pt;";
+    QRect Screen = QApplication::desktop()->screenGeometry();
+    if ( ( (640 == Screen.width()) && (480 == Screen.height()) ) ||
+       ( (480 == Screen.width()) && (640 == Screen.height()) ) )
+    {
+        //Nokia E6
+        sFontSize += "5pt;";
+    }
+    else
+    {
+        sFontSize += "6pt;";
+    }
 #else
     sFontSize += "16pt;";
 #endif
