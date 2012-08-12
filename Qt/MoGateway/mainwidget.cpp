@@ -183,11 +183,14 @@ MainWidget::~MainWidget()
 void MainWidget::messageAdded(const QMessageId& id,
     const QMessageManager::NotificationFilterIdSet& matchingFilterIds)
 {
+    qDebug() << "messageAdded: Start";
     // Message added...
     if (matchingFilterIds.contains(m_notifFilterSet))
     {
+        qDebug() << "messageAdded: filter ok";
         // ...and it fits into our filters, lets process it
         m_messageId = id;
+        qDebug() << "messageAdded: fire a signal";
         QTimer::singleShot(0, this, SLOT(processIncomingEmail()));
     }
 }
@@ -195,8 +198,10 @@ void MainWidget::messageAdded(const QMessageId& id,
 
 void MainWidget::processIncomingEmail()
 {
+    qDebug() << "processIncomingEmail: start";
     if (false == m_bIsGatewayStarted)
     {
+        qDebug() << "processIncomingEmail: ignore message";
         //ignore incoming message if the gateway is not started
         return;
     }
@@ -207,6 +212,7 @@ void MainWidget::processIncomingEmail()
 
     if (0 < phones.count())
     {
+        qDebug() << "processIncomingEmail: prepare to send SMS";
         QString sBody = getEmailBody();
 
         //send email as SMS
@@ -675,7 +681,6 @@ void MainWidget::createMessageManager()
     // - SMS filter
     // - InboxFolder filter
     m_notifFilterSet.insert(m_manager->registerNotificationFilter(
-        QMessageFilter::byType(QMessage::Email) &
-        QMessageFilter::byStatus(QMessage::Incoming)));
+        QMessageFilter::byType(QMessage::Email)));
 }
 //------------------------------------------------------------------------------
