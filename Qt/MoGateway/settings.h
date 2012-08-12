@@ -142,6 +142,13 @@ public:
       */
     void incrementSmsSentCount(int nCount);
 
+    /**
+      * Save settings
+      *
+      * @return nothing
+      */
+    void saveSettings();
+
 
 private:
 
@@ -151,13 +158,6 @@ private:
       * @return nothing
       */
     void loadSettings();
-
-    /**
-      * Save settings
-      *
-      * @return nothing
-      */
-    void saveSettings();
 
 signals:
     

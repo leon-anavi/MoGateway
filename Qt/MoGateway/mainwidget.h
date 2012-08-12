@@ -217,15 +217,6 @@ private:
     void resizeAboutAndLang();
 
     /**
-      * Adjust visibility of GUI components
-      *
-      * @param bVisible
-      *
-      * @return nothing
-      */
-    void setCtrlVisible(bool bVisible);
-
-    /**
       * round
       *
       * @param nNumber

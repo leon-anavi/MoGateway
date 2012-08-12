@@ -176,21 +176,22 @@ MainWidget::MainWidget(QWidget *parent) :
 
 MainWidget::~MainWidget()
 {
-
+    //stop the timer for email sync
+    if (NULL != m_pRefreshTimer)
+    {
+        m_pRefreshTimer->stop();
+    }
 }
 //------------------------------------------------------------------------------
 
 void MainWidget::messageAdded(const QMessageId& id,
     const QMessageManager::NotificationFilterIdSet& matchingFilterIds)
 {
-    qDebug() << "messageAdded: Start";
     // Message added...
     if (matchingFilterIds.contains(m_notifFilterSet))
     {
-        qDebug() << "messageAdded: filter ok";
         // ...and it fits into our filters, lets process it
         m_messageId = id;
-        qDebug() << "messageAdded: fire a signal";
         QTimer::singleShot(0, this, SLOT(processIncomingEmail()));
     }
 }
@@ -198,10 +199,8 @@ void MainWidget::messageAdded(const QMessageId& id,
 
 void MainWidget::processIncomingEmail()
 {
-    qDebug() << "processIncomingEmail: start";
     if (false == m_bIsGatewayStarted)
     {
-        qDebug() << "processIncomingEmail: ignore message";
         //ignore incoming message if the gateway is not started
         return;
     }
@@ -212,7 +211,6 @@ void MainWidget::processIncomingEmail()
 
     if (0 < phones.count())
     {
-        qDebug() << "processIncomingEmail: prepare to send SMS";
         QString sBody = getEmailBody();
 
         //send email as SMS
@@ -229,6 +227,11 @@ void MainWidget::processIncomingEmail()
             m_manager->removeMessage(m_messageId);
             m_service->exportUpdates(QMessageAccount::defaultAccount(QMessage::Email));
         }
+
+#ifdef Q_OS_SYMBIAN
+        //Workaround to same stats despite the crashes at app end caused by Qt Mobility
+        m_pSettings->saveSettings();
+#endif
     }
 }
 //------------------------------------------------------------------------------
@@ -323,12 +326,6 @@ void MainWidget::resizeAboutAndLang()
 }
 //------------------------------------------------------------------------------
 
-void MainWidget::setCtrlVisible(bool /*bVisible*/)
-{
-    //TODO: show/hide widgets
-}
-//------------------------------------------------------------------------------
-
 void MainWidget::changeEvent(QEvent* event)
 {
     if (QEvent::LanguageChange == event->type())
@@ -368,7 +365,7 @@ void MainWidget::handleOptionsMenu()
     }
     if (pButton->text() == tr(m_constStrings[3]))
     {
-        //TODO: add a confirmation dialog
+        //add a confirmation dialog
         createAndShowMessageResetStats();
     }
 
@@ -482,12 +479,10 @@ QMessageAddressList MainWidget::validateEmailAndGetReceivers(QString sSubject)
 
 void MainWidget::refresh()
 {
-#ifndef Q_OS_SYMBIAN
     if (true == m_bIsGatewayStarted)
     {
         m_service->synchronize(QMessageAccount::defaultAccount(QMessage::Email));
     }
-#endif
 }
 //------------------------------------------------------------------------------
 
@@ -626,6 +621,11 @@ void MainWidget::handleMessageBox()
         {
             //clear statistics
             resetStats();
+
+#ifdef Q_OS_SYMBIAN
+        //Workaround to same stats despite the crashes at app end caused by Qt Mobility
+        m_pSettings->saveSettings();
+#endif
         }
     }
 
@@ -681,6 +681,7 @@ void MainWidget::createMessageManager()
     // - SMS filter
     // - InboxFolder filter
     m_notifFilterSet.insert(m_manager->registerNotificationFilter(
-        QMessageFilter::byType(QMessage::Email)));
+        QMessageFilter::byType(QMessage::Email) &
+        QMessageFilter::byStandardFolder(QMessage::InboxFolder)));
 }
 //------------------------------------------------------------------------------
