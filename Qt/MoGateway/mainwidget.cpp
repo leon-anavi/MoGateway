@@ -580,7 +580,11 @@ bool MainWidget::isEmailConfigured()
 {
     if (true == m_bEmailAccountNotFound)
     {
-        delete m_manager;
+        if (NULL != m_manager)
+        {
+            delete m_manager;
+            m_manager = NULL;
+        }
         m_notifFilterSet.clear();
         createMessageManager();
     }
@@ -588,7 +592,7 @@ bool MainWidget::isEmailConfigured()
     foreach (const QMessageAccountId &id, m_manager->queryAccounts())
     {
         QMessageAccount account(id);
-        if (account.messageTypes() & QMessage::Email)
+        if (QMessage::Email == account.messageTypes())
         {
             m_bEmailAccountNotFound = false;
             //E-mail account found
