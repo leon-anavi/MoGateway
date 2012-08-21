@@ -22,8 +22,8 @@ MOBILITY += systeminfo
 
 symbian:
 {
-    #TARGET.UID3 = 0x20041ECA
-    TARGET.UID3 = 0xE28AD74A
+    TARGET.UID3 = 0x20041ECA
+    #TARGET.UID3 = 0xE28AD74A
     ICON = MoGateway.svg
 
     # symbian capabilities
