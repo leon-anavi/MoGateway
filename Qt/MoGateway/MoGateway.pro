@@ -6,8 +6,6 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-symbian:TARGET.UID3 = 0xE28AD74A
-
 # Smart Installer package's UID
 # This UID is from the protected range 
 # and therefore the package will fail to install if self-signed

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by Qt Creator 2.4.1, 2012-08-21T11:54:57. -->
+<!-- Written by Qt Creator 2.4.1, 2012-08-22T00:42:02. -->
 <qtcreator>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -718,7 +718,7 @@
       <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Certificate">C:/Symbian/Carbide/workspace/UBrowser/sis/certificate_v1.cer</value>
       <value type="QString" key="Qt4ProjectManager.S60CreatePackageStep.Keyfile">C:/Symbian/Carbide/workspace/UBrowser/sis/developercertificate.key</value>
       <value type="int" key="Qt4ProjectManager.S60CreatePackageStep.SignMode">1</value>
-      <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SmartInstaller">false</value>
+      <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SmartInstaller">true</value>
       <value type="bool" key="Qt4ProjectManager.S60CreatorPackageStep.SuppressPatchWarningDialog">false</value>
      </valuemap>
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.1">
@@ -739,7 +739,7 @@
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DeviceAddress"></value>
     <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.DevicePort">65029</value>
     <value type="QChar" key="Qt4ProjectManager.S60DeployConfiguration.InstallationDriveLetter">C</value>
-    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName"></value>
+    <value type="QString" key="Qt4ProjectManager.S60DeployConfiguration.SerialPortName">COM6</value>
     <value type="bool" key="Qt4ProjectManager.S60DeployConfiguration.SilentInstall">true</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.DeployConfigurationCount">1</value>
