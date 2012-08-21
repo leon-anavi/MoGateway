@@ -24,8 +24,8 @@ MOBILITY += systeminfo
 
 symbian:
 {
-    TARGET.UID3 = 0x20041ECA
-    #TARGET.UID3 = 0xE28AD74A
+    #TARGET.UID3 = 0x20041ECA
+    TARGET.UID3 = 0xE28AD74A
     ICON = MoGateway.svg
 
     # symbian capabilities
@@ -35,7 +35,7 @@ symbian:
                             ReadDeviceData \
                             WriteDeviceData
 
-    packageheader = "$${LITERAL_HASH}{\"MoGateway\"}, ($${TARGET.UID3}), 1, 0, 0"
+    packageheader = "$${LITERAL_HASH}{\"MoGateway\"}, ($${TARGET.UID3}), 1, 0, 1"
     name_deployment.pkg_prerules = packageheader
     DEPLOYMENT += name_deployment
 

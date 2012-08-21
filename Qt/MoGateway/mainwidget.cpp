@@ -436,7 +436,9 @@ QString MainWidget::getEmailBody()
 QString MainWidget::stripTags(QString sTxt)
 {
     //remove HTML tags using regular expression
-    return sTxt.remove( QRegExp( "<(?:div|span|tr|td|br|body|html|tt|a|strong|p)[^>]*>", Qt::CaseInsensitive ) );
+    QString sRes = sTxt.remove( QRegExp( "<(?:div|span|tr|td|br|body|html|tt|a|strong|p)[^>]*>", Qt::CaseInsensitive ) );
+    sRes.replace("</div>", "");
+    return sRes;
 }
 //------------------------------------------------------------------------------
 
@@ -502,7 +504,7 @@ QString MainWidget::getHowToText() const
 {
     QString sHowTo = "<h4>%1</h4>%2";
     QString sSubTitle1 = tr("E-mail to SMS Gateway");
-    QString sContent1 = tr("Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers separated with comma at the subject. The e-mail body will be send as SMS to each phone number.");
+    QString sContent1 = tr("Configure \"Mail for Exchange\". Press start and after that send an e-mail with prefix [email2sms] and a list of phone numbers separated with comma at the subject. The e-mail body will be send as SMS to each phone number.");
     return sHowTo.arg(sSubTitle1).arg(sContent1);
 }
 //------------------------------------------------------------------------------
