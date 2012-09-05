@@ -33,7 +33,7 @@ symbian:
                             ReadDeviceData \
                             WriteDeviceData
 
-    packageheader = "$${LITERAL_HASH}{\"MoGateway\"}, ($${TARGET.UID3}), 1, 0, 1"
+    packageheader = "$${LITERAL_HASH}{\"MoGateway\"}, ($${TARGET.UID3}), 1, 0, 2"
     name_deployment.pkg_prerules = packageheader
     DEPLOYMENT += name_deployment
 
@@ -63,7 +63,7 @@ HEADERS += mainwindow.h \
     settingslistwidget.h
 FORMS +=
 
-TRANSLATIONS = mogateway_bg.ts
+TRANSLATIONS = mogateway_bg.ts mogateway_tr.ts
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)

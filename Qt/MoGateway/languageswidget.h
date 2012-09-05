@@ -59,9 +59,11 @@ private:
 
     void loadBulgarian();
 
+    void loadTurkish();
+
     void loadEnglish();
 
-     void loadSelectedLanguage();
+    void loadSelectedLanguage();
 
 };
 

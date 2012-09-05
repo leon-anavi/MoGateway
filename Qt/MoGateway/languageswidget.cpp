@@ -29,6 +29,7 @@ LanguagesWidget::LanguagesWidget(Settings* pSettings, QWidget *parent) :
 
     new QListWidgetItem("English", m_pList);
     new QListWidgetItem(QString::fromUtf8("Български"), m_pList);
+    new QListWidgetItem(QString::fromUtf8("Türkçe"), m_pList);
 }
 //------------------------------------------------------------------------------
 
@@ -63,6 +64,9 @@ void LanguagesWidget::loadSelectedLanguage()
             //Bulgarian
             loadBulgarian();
         break;
+        case 2:
+            loadTurkish();
+        break;
         default:
             //English
             loadEnglish();
@@ -85,6 +89,22 @@ void LanguagesWidget::loadBulgarian()
     qApp->installTranslator(&m_Translator);
 }
 //------------------------------------------------------------------------------
+
+void LanguagesWidget::loadTurkish()
+{
+    if (m_Translator.load(":/translations/mogateway_tr"))
+    {
+        qDebug() << "Turkish translation loaded.";
+    }
+    else
+    {
+        qDebug() << "Unable to load Turkish translation.";
+    }
+
+    qApp->installTranslator(&m_Translator);
+}
+//------------------------------------------------------------------------------
+
 
 void LanguagesWidget::loadEnglish()
 {

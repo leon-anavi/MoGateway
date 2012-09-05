@@ -1,3 +1,8 @@
+mogateway (1.0.2) stable; urgency=low
+  * Turkish translation by Oytun Eren Sengul
+
+ -- Leon Anavi <leon@anavi.org>  Wed, 05 Sep 2012 19:48:53 +0300
+
 mogateway (1.0.1) stable; urgency=low
   * Instructions improved.
 

@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/translations">
         <file>mogateway_bg.qm</file>
+        <file>mogateway_tr.qm</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="checkbox_checked.png">images/checkbox_checked.png</file>
